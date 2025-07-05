@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #15aec5;
+        }
+        .container {
+            background: rgb(157, 220, 229);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Temperature Converter</h1>
+        <div class="form-group">
+            <label for="temperature">Temperature:</label>
+            <input type="number" id="temperature" placeholder="Enter temperature">
+        </div>
+        <div class="form-group">
+            <label for="unit">Unit:</label>
+            <select id="unit">
+                <option value="Celsius">Celsius</option>
+                <option value="Fahrenheit">Fahrenheit</option>
+                <option value="Kelvin">Kelvin</option>
+            </select>
+        </div>
+        <button onclick="convertTemperature()">Convert</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function convertTemperature() {
+            const temp = parseFloat(document.getElementById('temperature').value);
+            const unit = document.getElementById('unit').value;
+            let celsius, fahrenheit, kelvin;
+
+            if (isNaN(temp)) {
+                alert("Please enter a valid temperature.");
+                return;
+            }
+
+            switch (unit) {
+                case 'Celsius':
+                    celsius = temp;
+                    fahrenheit = (temp * 9/5) + 32;
+                    kelvin = temp + 273.15;
+                    break;
+                case 'Fahrenheit':
+                    celsius = (temp - 32) * 5/9;
+                    fahrenheit = temp;
+                    kelvin = celsius + 273.15;
+                    break;
+                case 'Kelvin':
+                    celsius = temp - 273.15;
+                    fahrenheit = (celsius * 9/5) + 32;
+                    kelvin = temp;
+                    break;
+                default:
+                    alert("Please select a valid unit.");
+                    return;
+            }
+
+            document.getElementById('result').innerHTML = `
+                <p>Celsius: ${celsius.toFixed(2)}</p>
+                <p>Fahrenheit: ${fahrenheit.toFixed(2)}</p>
+                <p>Kelvin: ${kelvin.toFixed(2)}</p>
+            `;
+        }
+    </script>
+</body>
+</html>
